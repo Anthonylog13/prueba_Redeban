@@ -19,10 +19,13 @@ services:
       retries: 5
 
   app:
-    build: .
+    build:
+      context: .
+      args:
+        DATABASE_URL: postgresql://admin:mr5qcm2p@postgres:5432/parameter_db?schema=public
     container_name: parameter-service
     environment:
-      DATABASE_URL: postgresql://admin:admin123@postgres:5432/parameter_db?schema=public
+      DATABASE_URL: postgresql://admin:mr5qcm2p@postgres:5432/parameter_db?schema=public
       PORT: 3000
       NODE_ENV: development
       API_PREFIX: /api/v1
@@ -34,7 +37,7 @@ services:
     volumes:
       - ./src:/app/src
       - ./prisma:/app/prisma
-    command: sh -c "npx prisma migrate deploy && npm run dev"
+    command: sh -c "npx prisma migrate deploy && npm run dev:docker"
 
 volumes:
   postgres-data:

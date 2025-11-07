@@ -32,41 +32,154 @@ Este proyecto utiliza una **Arquitectura en Capas (Layered Architecture)** para 
 
 ---
 
-## 🚀 Instalación y Ejecución Local
+## 🚀 Instalación y Ejecución
 
-Sigue estos pasos para levantar el proyecto en un entorno local.
+### Opción 1: Con Docker Compose
 
-### 1. Clonar el repositorio
+Esta opción levanta automáticamente la base de datos PostgreSQL y la aplicación.
 
 ```bash
-git clone <URL-DE-TU-REPOSITORIO-GIT>
-cd parameter-service
-```
+
+git clone
+cd ParamService
+
+cp .env.example .env
+
 
 npm install
 
-Copia el archivo de ejemplo y edítalo con tus credenciales locales.
-cp .env.template .env
 
-Ejecutar con Docker Compose
-docker-compose up --build
+npm run prisma:generate
+
 
 docker-compose up --build
+```
 
-Ejecución Manual
+**La aplicación estará disponible en:** `http://localhost:3000/api/v1`
 
-# 1. Levantar solo la base de datos
+---
+
+### Opción 2: Ejecución Manual (Desarrollo)
+
+Si prefieres ejecutar la aplicación localmente sin Docker para el servidor Node:
+
+```bash
+
+git clone
+cd ParamService
+npm install
+
+
+cp .env.example .env
+
 
 docker-compose up -d postgres
 
-# 2. Aplicar las migraciones de la base de datos
+npm run prisma:generate
+
 
 npx prisma migrate dev
 
-# 3. Generar el cliente de Prisma
-
-npx prisma generate
-
-# 4. Iniciar la aplicación en modo desarrollo
 
 npm run dev
+```
+
+---
+
+## 🗄️ Configuración de Base de Datos
+
+### Variables de Entorno (.env)
+
+```env
+DATABASE_URL="postgresql://admin:mr5qcm2p@localhost:5432/parameter_db?schema=public"
+PORT=3000
+NODE_ENV=development
+API_PREFIX=/api/v1
+```
+
+### Comandos de Prisma Útiles
+
+```bash
+
+npm run prisma:generate
+
+
+npx prisma migrate dev --name nombre_migracion
+
+
+npx prisma studio
+
+npx prisma migrate reset
+```
+
+---
+
+## 📡 API Endpoints
+
+Base URL: `http://localhost:3000/api/v1`
+
+### Crear Parámetro
+
+```http
+POST /parameters
+Content-Type: application/json
+
+{
+  "name": "policyAlert",
+  "value": true,
+  "type": "boolean"
+}
+```
+
+### Listar Todos los Parámetros
+
+```http
+GET /parameters
+```
+
+### Obtener Parámetro por ID
+
+```http
+GET /parameters/:id
+```
+
+### Obtener Parámetro por Nombre
+
+```http
+GET /parameters/name/:name
+```
+
+### Actualizar Parámetro
+
+```http
+PUT /parameters/:id
+Content-Type: application/json
+
+{
+  "value": false,
+  "type": "boolean"
+}
+```
+
+### Eliminar Parámetro
+
+```http
+DELETE /parameters/:id
+```
+
+---
+
+## 🧪 Testing
+
+```bash
+
+npm test
+
+
+npm run test:coverage
+
+
+npm run test:watch
+```
+
+---
