@@ -10,7 +10,7 @@ export class ParameterController {
     try {
       const validation = createParameterSchema.safeParse(req.body);
       if (!validation.success) {
-        throw new ValidationError(validation.error.errors[0].message);
+        throw new ValidationError(validation.error.issues[0].message);
       }
 
       const parameter = await this.service.createParameter(validation.data);
@@ -68,7 +68,7 @@ export class ParameterController {
       const { id } = req.params;
       const validation = updateParameterSchema.safeParse(req.body);
       if (!validation.success) {
-        throw new ValidationError(validation.error.errors[0].message);
+        throw new ValidationError(validation.error.issues[0].message);
       }
 
       const parameter = await this.service.updateParameter(id, validation.data);

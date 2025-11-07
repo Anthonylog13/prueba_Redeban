@@ -6,7 +6,7 @@ services:
     container_name: parameter-db
     environment:
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
+      POSTGRES_PASSWORD: mr5qcm2p
       POSTGRES_DB: parameter_db
     ports:
       - "5432:5432"
