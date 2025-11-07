@@ -9,7 +9,7 @@
     "start": "node dist/app.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "prisma:generate": "prisma generate",
+    "prisma:generate": "dotenv -e .env -- prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
     "lint": "eslint . --ext .ts"
@@ -37,6 +37,7 @@
     "@types/node": "^24.10.0",
     "@typescript-eslint/eslint-plugin": "^8.46.3",
     "@typescript-eslint/parser": "^8.46.3",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.1",
     "jest": "^30.2.0",
     "nodemon": "^3.1.10",

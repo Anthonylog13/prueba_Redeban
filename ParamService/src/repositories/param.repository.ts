@@ -1,46 +1,62 @@
 import prisma from '../config/database';
-import { Parameter, CreateParameterDTO, UpdateParameterDTO } from '../models/param.model';
-import { NotFoundError } from '../utils/errors';
+import { Parameter, CreateParameterDTO, UpdateParameterDTO, ParameterType } from '../models/param.model';
 
 export class ParameterRepository {
+  // Función helper para mapear de Prisma a tu interfaz
+  private mapToParameter(prismaParam: any): Parameter {
+    return {
+      id: prismaParam.id,
+      name: prismaParam.name,
+      value: prismaParam.value,
+      type: prismaParam.type as ParameterType,
+      createdAt: prismaParam.createdAt,
+      updatedAt: prismaParam.updatedAt,
+    };
+  }
+
   async create(data: CreateParameterDTO & { type: string }): Promise<Parameter> {
-    return await prisma.parameter.create({
+    const result = await prisma.parameter.create({
       data: {
         name: data.name,
         value: data.value,
         type: data.type,
       },
     });
+    return this.mapToParameter(result);
   }
 
   async findAll(): Promise<Parameter[]> {
-    return await prisma.parameter.findMany({
+    const results = await prisma.parameter.findMany({
       orderBy: {
         createdAt: 'desc',
       },
     });
+    return results.map(r => this.mapToParameter(r));
   }
 
   async findById(id: string): Promise<Parameter | null> {
-    return await prisma.parameter.findUnique({
+    const result = await prisma.parameter.findUnique({
       where: { id },
     });
+    return result ? this.mapToParameter(result) : null;
   }
 
   async findByName(name: string): Promise<Parameter | null> {
-    return await prisma.parameter.findUnique({
+    const result = await prisma.parameter.findUnique({
       where: { name },
     });
+    return result ? this.mapToParameter(result) : null;
   }
 
   async update(id: string, data: UpdateParameterDTO & { type: string }): Promise<Parameter> {
-    return await prisma.parameter.update({
+    const result = await prisma.parameter.update({
       where: { id },
       data: {
         value: data.value,
         type: data.type,
       },
     });
+    return this.mapToParameter(result);
   }
 
   async delete(id: string): Promise<void> {
