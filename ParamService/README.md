@@ -13,7 +13,7 @@ Este proyecto utiliza una **Arquitectura en Capas (Layered Architecture)** para 
 
 **Patrón de Diseño:** Se utiliza el **Patrón Repositorio** y **Patrón de Inyección de Dependencias** para desacoplar la lógica de negocio del acceso a datos, facilitando las pruebas y el mantenimiento.
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 - **Runtime:** Node.js 18+
 - **Lenguaje:** TypeScript
@@ -24,7 +24,7 @@ Este proyecto utiliza una **Arquitectura en Capas (Layered Architecture)** para 
 - **Testing:** Jest
 - **Containerización:** Docker & Docker Compose
 
-## 📋 Prerrequisitos
+## Prerrequisitos
 
 - Node.js 18+
 - Docker y Docker Compose
@@ -32,7 +32,7 @@ Este proyecto utiliza una **Arquitectura en Capas (Layered Architecture)** para 
 
 ---
 
-## 🚀 Instalación y Ejecución
+## Instalación y Ejecución
 
 ### Opción 1: Con Docker Compose
 
@@ -86,7 +86,7 @@ npm run dev
 
 ---
 
-## 🗄️ Configuración de Base de Datos
+## Configuración de Base de Datos
 
 ### Variables de Entorno (.env)
 
@@ -114,7 +114,7 @@ npx prisma migrate reset
 
 ---
 
-## 📡 API Endpoints
+## API Endpoints
 
 Base URL: `http://localhost:3000/api/v1`
 
@@ -169,7 +169,7 @@ DELETE /parameters/:id
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ```bash
 
